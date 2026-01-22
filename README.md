@@ -51,7 +51,7 @@ Players start with 10 credits and can roll three slots by spending 1 credit per 
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/aserputko/casino-jackpot-assignment.git
    cd casino-jackpot-assignment
    ```
 
