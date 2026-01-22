@@ -7,7 +7,16 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:backend": "npm run start:dev --workspace=backend"
+    "start:backend": "npm run start:dev --workspace=backend",
+    "lint": "npm run lint:backend",
+    "lint:backend": "npm run lint --workspace=backend",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:ps": "docker-compose ps",
+    "prisma:generate": "npm run prisma:generate --workspace=backend",
+    "prisma:migrate": "npm run prisma:migrate --workspace=backend",
+    "prisma:studio": "npm run prisma:studio --workspace=backend"
   },
   "author": "",
   "license": "ISC",
