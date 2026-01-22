@@ -4,7 +4,7 @@ import { Game } from '../types';
 interface GameContextType {
   game: Game | null;
   setGame: (game: Game | null) => void;
-  updateGame: (updatedGame: Game) => void;
+  updateGame: (updatedGame: Game | null) => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -24,7 +24,7 @@ interface GameProviderProps {
 export const GameProvider = ({ children }: GameProviderProps) => {
   const [game, setGame] = useState<Game | null>(null);
 
-  const updateGame = (updatedGame: Game) => {
+  const updateGame = (updatedGame: Game | null) => {
     setGame(updatedGame);
   };
 

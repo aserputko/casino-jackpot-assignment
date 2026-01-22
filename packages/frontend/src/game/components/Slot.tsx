@@ -21,7 +21,12 @@ export const Slot = ({ slot, delay }: SlotProps) => {
   }, [slot, delay]);
 
   return (
-    <CardContent className={cn('flex aspect-square items-center justify-center p-6 ')}>
+    <CardContent
+      className={cn(
+        'flex aspect-square items-center justify-center p-6',
+        displayedSlot === 'X' && 'bg-gray-200 animate-pulse',
+      )}
+    >
       <span className={cn('text-6xl font-semibold')}>{displayedSlot}</span>
     </CardContent>
   );
