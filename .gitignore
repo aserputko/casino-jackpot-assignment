@@ -3,7 +3,14 @@
 /packages/backend/dist
 /packages/frontend/dist
 /node_modules
+/packages/backend/node_modules
+/packages/frontend/node_modules
+
 /build
+
+# Vite
+.vite
+*.local
 
 # Logs
 logs
