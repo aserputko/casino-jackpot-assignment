@@ -22,8 +22,12 @@ import {
     GameResponseDtoToJSON,
 } from '../models/index';
 
+export interface GameControllerCashoutGameRequest {
+    id: string;
+}
+
 export interface GameControllerRollSlotsRequest {
-    gameId: string;
+    id: string;
 }
 
 /**
@@ -32,13 +36,13 @@ export interface GameControllerRollSlotsRequest {
 export class GamesApi extends runtime.BaseAPI {
 
     /**
-     * Roll the slots in a game
+     * Cash out and complete the game
      */
-    async gameControllerRollSlotsRaw(requestParameters: GameControllerRollSlotsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GameResponseDto>> {
-        if (requestParameters['gameId'] == null) {
+    async gameControllerCashoutGameRaw(requestParameters: GameControllerCashoutGameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GameResponseDto>> {
+        if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
-                'gameId',
-                'Required parameter "gameId" was null or undefined when calling gameControllerRollSlots().'
+                'id',
+                'Required parameter "id" was null or undefined when calling gameControllerCashoutGame().'
             );
         }
 
@@ -47,7 +51,40 @@ export class GamesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/games/{gameId}/roll`.replace(`{${"gameId"}}`, encodeURIComponent(String(requestParameters['gameId']))),
+            path: `/games/{id}/cashout`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GameResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     * Cash out and complete the game
+     */
+    async gameControllerCashoutGame(requestParameters: GameControllerCashoutGameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GameResponseDto> {
+        const response = await this.gameControllerCashoutGameRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Roll the slots in a game
+     */
+    async gameControllerRollSlotsRaw(requestParameters: GameControllerRollSlotsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GameResponseDto>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling gameControllerRollSlots().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/games/{id}/roll`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
