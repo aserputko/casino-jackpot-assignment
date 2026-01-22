@@ -14,13 +14,6 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  GameResponseDto,
-} from '../models/index';
-import {
-    GameResponseDtoFromJSON,
-    GameResponseDtoToJSON,
-} from '../models/index';
 
 export interface GameControllerRollSlotsRequest {
     gameId: string;
@@ -34,7 +27,7 @@ export class GamesApi extends runtime.BaseAPI {
     /**
      * Roll the slots in a game
      */
-    async gameControllerRollSlotsRaw(requestParameters: GameControllerRollSlotsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GameResponseDto>> {
+    async gameControllerRollSlotsRaw(requestParameters: GameControllerRollSlotsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
         if (requestParameters['gameId'] == null) {
             throw new runtime.RequiredError(
                 'gameId',
@@ -53,13 +46,13 @@ export class GamesApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => GameResponseDtoFromJSON(jsonValue));
+        return new runtime.JSONApiResponse<any>(response);
     }
 
     /**
      * Roll the slots in a game
      */
-    async gameControllerRollSlots(requestParameters: GameControllerRollSlotsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GameResponseDto> {
+    async gameControllerRollSlots(requestParameters: GameControllerRollSlotsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
         const response = await this.gameControllerRollSlotsRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -67,7 +60,7 @@ export class GamesApi extends runtime.BaseAPI {
     /**
      * Start a new game
      */
-    async gameControllerStartGameRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GameResponseDto>> {
+    async gameControllerStartGameRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -79,13 +72,13 @@ export class GamesApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => GameResponseDtoFromJSON(jsonValue));
+        return new runtime.JSONApiResponse<any>(response);
     }
 
     /**
      * Start a new game
      */
-    async gameControllerStartGame(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GameResponseDto> {
+    async gameControllerStartGame(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
         const response = await this.gameControllerStartGameRaw(initOverrides);
         return await response.value();
     }
