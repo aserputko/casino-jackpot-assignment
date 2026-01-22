@@ -1,7 +1,18 @@
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GamePage } from './game/GamePage';
+import { createQueryClient } from './lib/query';
+
+// Create a client
+const queryClient = createQueryClient();
 
 function App() {
-  return <GamePage />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <GamePage />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
