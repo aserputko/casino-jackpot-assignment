@@ -26,3 +26,12 @@
 ## Deployment View
 
 ![Deployment View Diagram](2.2_deployment_view.png)
+
+
+## API Design
+
+- POST /games/start
+
+- POST /games/:gameId/roll
+
+- POST /games/:gameId/cashout
