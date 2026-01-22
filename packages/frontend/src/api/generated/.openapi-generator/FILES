@@ -1,0 +1,7 @@
+.openapi-generator-ignore
+apis/GamesApi.ts
+apis/index.ts
+index.ts
+models/GameResponseDto.ts
+models/index.ts
+runtime.ts

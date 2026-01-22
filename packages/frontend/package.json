@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "podman:run": "podman run -v ./src/api:/out -it --rm docker.io/openapitools/openapi-generator-cli generate -i /out/swagger.json -g typescript-fetch --additional-properties=modelPropertyNaming=original -o /out/generated  --skip-validate-spec",
+    "swagger:curl": "curl -L -o ./src/api/swagger.json http://localhost:3000/docs/json",
+    "generate:api": "npm run swagger:curl && npm run podman:run"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
