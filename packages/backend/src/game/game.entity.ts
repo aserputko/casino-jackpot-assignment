@@ -49,10 +49,27 @@ export class GameEntity {
       throw new GameBusinessRuleException('Insufficient credits to play');
     }
 
+    // Apply truly random roll
     this.slots = this.getRandomSlots();
-    const isWin = this.isWin();
 
-    if (isWin) {
+    // Apply 60% chance re-roll if a user has above 60 credits
+    if (this.isWin() && this.credits >= 60) {
+      const rollAgain = this.shouldPerformRollAgain(60);
+      if (rollAgain) {
+        this.slots = this.getRandomSlots();
+      }
+    }
+
+    // Apply 30% chance re-roll if a user has between 40 and 60 credits
+    if (this.isWin() && this.credits >= 40) {
+      const rollAgain = this.shouldPerformRollAgain(30);
+      if (rollAgain) {
+        this.slots = this.getRandomSlots();
+      }
+    }
+
+    // Add rewards in case of win
+    if (this.isWin()) {
       const rewards = SLOT_REWARDS[this.slots[0]];
       this.credits = this.credits + rewards;
     } else {
@@ -76,5 +93,10 @@ export class GameEntity {
     if (r < 0.5) return GameSlot.L;
     if (r < 0.75) return GameSlot.O;
     return GameSlot.W;
+  }
+
+  private shouldPerformRollAgain(probability: number): boolean {
+    const random = Math.random();
+    return random < probability / 100;
   }
 }
