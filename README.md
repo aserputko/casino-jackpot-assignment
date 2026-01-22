@@ -5,8 +5,8 @@ Implementation Steps
 - [x] Create Architecture Solution
 - [x] Create monorepo
 - [x] Setup Backend module
-- [ ] Setup Database via Docker
-- [ ] Setup Frontend module
+- [x] Setup Database via Docker
+- [x] Setup Frontend module
 - [ ] Implement "US-1: Start a new game" user sotry
 - [ ] Implement "US-2: Rolling the slots" user sotry
 - [ ] Implement "US-3: Rolling the Slots with additional business logic" user sotry
