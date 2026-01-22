@@ -1,5 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { GameProvider } from './game/context';
 import { GamePage } from './game/GamePage';
 import { createQueryClient } from './lib/query';
 
@@ -9,7 +10,9 @@ const queryClient = createQueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <GamePage />
+      <GameProvider>
+        <GamePage />
+      </GameProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

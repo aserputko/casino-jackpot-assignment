@@ -1,59 +1,25 @@
-import { useState } from 'react';
-import { Button } from '../components';
-import { SessionCredits, Slots } from './components';
-import { useRollSlots, useStartGame } from './hooks';
-import { Game } from './types';
+import { RollSlotsButton, SessionCredits, Slots, StartGameButton } from './components';
+import { CashOutButton } from './components/CashOutButton';
+import { useGameContext } from './context';
 
 export const GamePage = () => {
-  const [game, setGame] = useState<Game | null>(null);
-
-  const { mutate: rollSlots } = useRollSlots({
-    onSuccess: (updatedGame) => {
-      setGame(updatedGame);
-    },
-  });
-
-  const { mutate: createGame } = useStartGame({
-    onSuccess: (newGame) => {
-      setGame(newGame);
-      rollSlots(newGame.id);
-    },
-  });
-
-  const handleStartGame = () => {
-    createGame();
-  };
-
-  const handleRollSlots = () => {
-    rollSlots(game!.id);
-  };
+  const { game } = useGameContext();
 
   return (
     <>
       <div className='flex flex-col flex-auto container mx-auto gap-4'>
         <h1 className='py-8 border-b border-solid border-gray-300 mb-8'>Slot Machine</h1>
+        <SessionCredits />
+        <Slots />
 
-        <SessionCredits credits={game?.credits} />
+        {/* The Start Game Button is shown when the game is not active */}
+        {!game?.id && <StartGameButton />}
 
-        <Slots slots={game?.slots || []}></Slots>
-
-        {!game?.id && (
-          <div className='flex justify-center items-center'>
-            <Button className='w-[200px] capitalize' size='lg' onClick={handleStartGame}>
-              Start Game
-            </Button>
-          </div>
-        )}
-
+        {/* The Cash Out & Roll Slots Buttons are shown when the game is active */}
         {game?.id && (
           <div className='flex justify-between items-center'>
-            <Button className='w-[200px] capitalize' size='lg' variant='secondary'>
-              Cash Out
-            </Button>
-
-            <Button className='w-[200px] capitalize' size='lg' onClick={handleRollSlots}>
-              Roll the slots
-            </Button>
+            <CashOutButton />
+            <RollSlotsButton />
           </div>
         )}
       </div>

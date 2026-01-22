@@ -1,13 +1,12 @@
 import { Badge } from '../../components';
+import { useGameContext } from '../context';
 
-type SessionCreditsProps = {
-  credits?: number;
-};
+export const SessionCredits = () => {
+  const { game } = useGameContext();
 
-export const SessionCredits = ({ credits }: SessionCreditsProps) => {
   return (
     <div className='flex justify-end items-center'>
-      <Badge variant='default'>Session Credits: {credits ?? 0}</Badge>
+      <Badge variant='default'>Session Credits: {game?.credits ?? 0}</Badge>
     </div>
   );
 };
