@@ -1,25 +1,22 @@
-import { Card, CardContent } from '../../components';
+import { Card } from '../../components';
 import { useGameContext } from '../context';
+import { Slot } from './Slot';
 
 export const Slots = () => {
   const { game } = useGameContext();
 
+  const key = Date.now();
+
   return (
     <div className='flex flex-row flex-auto gap-4 mb-6'>
-      <Card className='flex-1'>
-        <CardContent className='flex aspect-square items-center justify-center p-6'>
-          <span className='text-6xl font-semibold'>{game?.slots[0] ?? 'X'}</span>
-        </CardContent>
+      <Card key={`${key}-0`} className='flex-1'>
+        <Slot slot={game?.slots[0]} delay={1000} />
       </Card>
-      <Card className='flex-1'>
-        <CardContent className='flex aspect-square items-center justify-center p-6'>
-          <span className='text-6xl font-semibold'>{game?.slots[1] ?? 'X'}</span>
-        </CardContent>
+      <Card key={`${key}-1`} className='flex-1'>
+        <Slot slot={game?.slots[1]} delay={2000} />
       </Card>
-      <Card className='flex-1'>
-        <CardContent className='flex aspect-square items-center justify-center p-6'>
-          <span className='text-6xl font-semibold'>{game?.slots[2] ?? 'X'}</span>
-        </CardContent>
+      <Card key={`${key}-2`} className='flex-1'>
+        <Slot slot={game?.slots[2]} delay={3000} />
       </Card>
     </div>
   );

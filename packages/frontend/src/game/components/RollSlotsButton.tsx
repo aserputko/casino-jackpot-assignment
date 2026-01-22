@@ -5,7 +5,7 @@ import { useRollSlots } from '../hooks';
 export const RollSlotsButton = () => {
   const { game, updateGame } = useGameContext();
 
-  const { mutate: rollSlots } = useRollSlots({
+  const { mutate: rollSlots, isPending } = useRollSlots({
     onSuccess: (updatedGame) => {
       updateGame(updatedGame);
     },
@@ -16,7 +16,12 @@ export const RollSlotsButton = () => {
   };
 
   return (
-    <Button className='w-[200px] capitalize' size='lg' onClick={handleRollSlots}>
+    <Button
+      className='w-[200px] capitalize'
+      size='lg'
+      disabled={isPending}
+      onClick={handleRollSlots}
+    >
       Roll the slots
     </Button>
   );
