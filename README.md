@@ -10,7 +10,7 @@ Implementation Steps
 - [x] Implement "US-1: Start a new game" user sotry
 - [x] Implement "US-2: Rolling the slots" user sotry
 - [x] Implement "US-3: Rolling the Slots with additional business logic" user sotry
-- [ ] Implement "US-2: Rolling the slots" user sotry
-- [ ] Verify end-to-end flow in the system
+- [x] Implement "US-2: Rolling the slots" user sotry
+- [x] Verify end-to-end flow in the system
 - [ ] Update/fix .env configurations
 - [ ] Update docs if needed
