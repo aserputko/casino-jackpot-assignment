@@ -1,23 +1,32 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { GameResponseDto } from './dto/game-response.dto';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { GameEntity } from './game.entity';
+import { GameRepository } from './game.repository';
 
 @Injectable()
 export class GameService {
   private readonly logger = new Logger();
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly gameRepository: GameRepository) {}
 
-  async startGame(): Promise<GameResponseDto> {
+  async startGame(): Promise<GameEntity> {
     this.logger.log('Starting the game');
 
-    const newGame = new GameEntity().createGame();
+    const newGame = GameEntity.createNewGame();
 
-    const game = await this.prisma.game.create({
-      data: newGame,
-    });
+    return await this.gameRepository.create(newGame);
+  }
 
-    return game;
+  async rollSlots(id: string): Promise<GameEntity> {
+    this.logger.log(`Rolling slots for game: ${id}`);
+
+    const game = await this.gameRepository.findById(id);
+
+    if (!game) {
+      throw new NotFoundException(`Game with ID ${id} not found`);
+    }
+
+    game.pullSlots();
+
+    return await this.gameRepository.update(id, game);
   }
 }

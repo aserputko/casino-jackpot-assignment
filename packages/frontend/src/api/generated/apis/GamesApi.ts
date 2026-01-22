@@ -22,10 +22,47 @@ import {
     GameResponseDtoToJSON,
 } from '../models/index';
 
+export interface GameControllerRollSlotsRequest {
+    gameId: string;
+}
+
 /**
  * 
  */
 export class GamesApi extends runtime.BaseAPI {
+
+    /**
+     * Roll the slots in a game
+     */
+    async gameControllerRollSlotsRaw(requestParameters: GameControllerRollSlotsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GameResponseDto>> {
+        if (requestParameters['gameId'] == null) {
+            throw new runtime.RequiredError(
+                'gameId',
+                'Required parameter "gameId" was null or undefined when calling gameControllerRollSlots().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/games/{gameId}/roll`.replace(`{${"gameId"}}`, encodeURIComponent(String(requestParameters['gameId']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GameResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     * Roll the slots in a game
+     */
+    async gameControllerRollSlots(requestParameters: GameControllerRollSlotsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GameResponseDto> {
+        const response = await this.gameControllerRollSlotsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Start a new game
