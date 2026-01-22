@@ -8,6 +8,7 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { GameResponseDto } from './dto/game-response.dto';
 import { GameBusinessRuleFilter } from './filters/game-business-rule.filter';
 import { GameEntity } from './game.entity';
 import { GameService } from './game.service';
@@ -24,10 +25,11 @@ export class GameController {
   @ApiResponse({
     status: 201,
     description: 'Game created successfully',
-    type: GameEntity,
+    type: GameResponseDto,
   })
-  async startGame(): Promise<GameEntity> {
-    return this.gameService.startGame();
+  async startGame(): Promise<GameResponseDto> {
+    const game = await this.gameService.startGame();
+    return this.mapToDTO(game);
   }
 
   @Post(':gameId/roll')
@@ -42,7 +44,7 @@ export class GameController {
   @ApiResponse({
     status: 200,
     description: 'Slots rolled successfully',
-    type: GameEntity,
+    type: GameResponseDto,
   })
   @ApiResponse({
     status: 404,
@@ -56,7 +58,17 @@ export class GameController {
     status: 400,
     description: 'Insufficient credits or game completed',
   })
-  async rollSlots(@Param('gameId', ParseUUIDPipe) gameId: string): Promise<GameEntity> {
-    return this.gameService.rollSlots(gameId);
+  async rollSlots(@Param('gameId', ParseUUIDPipe) gameId: string): Promise<GameResponseDto> {
+    const game = await this.gameService.rollSlots(gameId);
+    return this.mapToDTO(game);
+  }
+
+  private mapToDTO(entity: GameEntity): GameResponseDto {
+    return {
+      id: entity.id!,
+      status: entity.status,
+      credits: entity.credits,
+      slots: entity.slots,
+    };
   }
 }

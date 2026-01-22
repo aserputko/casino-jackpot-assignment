@@ -1,18 +1,33 @@
 import { useState } from 'react';
 import { Button } from '../components';
 import { SessionCredits, Slots } from './components';
-import { useCreateGame } from './hooks/useCreateGame';
+import { useRollSlots, useStartGame } from './hooks';
+import { Game } from './types';
 
 export const GamePage = () => {
-  const [game, setGame] = useState<any>(null);
+  const [game, setGame] = useState<Game | null>(null);
 
-  const { mutate: createGame } = useCreateGame((game) => {
-    setGame(game);
+  const { mutate: rollSlots } = useRollSlots({
+    onSuccess: (updatedGame) => {
+      setGame(updatedGame);
+    },
+  });
+
+  const { mutate: createGame } = useStartGame({
+    onSuccess: (newGame) => {
+      setGame(newGame);
+      rollSlots(newGame.id);
+    },
   });
 
   const handleStartGame = () => {
     createGame();
   };
+
+  const handleRollSlots = () => {
+    rollSlots(game!.id);
+  };
+
   return (
     <>
       <div className='flex flex-col flex-auto container mx-auto gap-4'>
@@ -36,7 +51,7 @@ export const GamePage = () => {
               Cash Out
             </Button>
 
-            <Button className='w-[200px] capitalize' size='lg'>
+            <Button className='w-[200px] capitalize' size='lg' onClick={handleRollSlots}>
               Roll the slots
             </Button>
           </div>

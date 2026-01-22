@@ -42,7 +42,7 @@ export interface GameResponseDto {
      * @type {Array<string>}
      * @memberof GameResponseDto
      */
-    slots: Array<string>;
+    slots: Array<GameResponseDtoSlotsEnum>;
     /**
      * Date when the game was created
      * @type {Date}
@@ -66,6 +66,18 @@ export const GameResponseDtoStatusEnum = {
     Completed: 'Completed'
 } as const;
 export type GameResponseDtoStatusEnum = typeof GameResponseDtoStatusEnum[keyof typeof GameResponseDtoStatusEnum];
+
+/**
+ * @export
+ */
+export const GameResponseDtoSlotsEnum = {
+    X: 'X',
+    C: 'C',
+    L: 'L',
+    O: 'O',
+    W: 'W'
+} as const;
+export type GameResponseDtoSlotsEnum = typeof GameResponseDtoSlotsEnum[keyof typeof GameResponseDtoSlotsEnum];
 
 
 /**
