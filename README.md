@@ -1,3 +1,18 @@
 Implementation Steps
 
-- [ ] Investigate & analyze requirements
+- [x] Investigate & analyze requirements
+- [x] Add Documentation to the repository
+- [x] Create Architecture Solution
+- [ ] Create monorepo
+- [ ] Setup Backend module
+- [ ] Setup Database via Docker
+- [ ] Setup Frontend module
+- [ ] Implement "US-1: Start a new game" user sotry
+- [ ] Implement "US-2: Rolling the slots" user sotry
+- [ ] Implement "US-3: Rolling the Slots with additional business logic" user sotry
+- [ ] Implement "US-2: Rolling the slots" user sotry
+- [ ] Verify end-to-end flow in the system
+- [ ] Update docs if needed
+
+
+
