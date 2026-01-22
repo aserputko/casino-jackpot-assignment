@@ -1,6 +1,13 @@
 import { Badge, Button, Card, CardContent } from '../components';
+import { useCreateGame } from './hooks/useCreateGame';
 
 export const GamePage = () => {
+  const { mutate: createGame } = useCreateGame();
+
+  const handleStartGame = () => {
+    const data = createGame();
+    console.log('Start Game clicked', data);
+  };
   return (
     <>
       <div className='flex flex-col flex-auto container mx-auto gap-4'>
@@ -28,11 +35,11 @@ export const GamePage = () => {
           </Card>
         </div>
 
-        {/* <div className='flex justify-end items-center'>
-          <Button className='w-[200px] capitalize' size='lg'>
+        <div className='flex justify-end items-center'>
+          <Button className='w-[200px] capitalize' size='lg' onClick={handleStartGame}>
             Start Game
           </Button>
-        </div> */}
+        </div>
 
         <div className='flex justify-between items-center'>
           <Button className='w-[200px] capitalize' size='lg' variant='secondary'>
