@@ -32,11 +32,11 @@ export class GameController {
     return this.mapToDTO(game);
   }
 
-  @Post(':gameId/roll')
+  @Post(':id/roll')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Roll the slots in a game' })
   @ApiParam({
-    name: 'gameId',
+    name: 'id',
     description: 'The unique identifier of the game',
     type: 'string',
     format: 'uuid',
@@ -58,8 +58,35 @@ export class GameController {
     status: 400,
     description: 'Insufficient credits or game completed',
   })
-  async rollSlots(@Param('gameId', ParseUUIDPipe) gameId: string): Promise<GameResponseDto> {
-    const game = await this.gameService.rollSlots(gameId);
+  async rollSlots(@Param('id', ParseUUIDPipe) id: string): Promise<GameResponseDto> {
+    const game = await this.gameService.rollSlots(id);
+    return this.mapToDTO(game);
+  }
+
+  @Post(':id/cashout')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Cash out and complete the game' })
+  @ApiParam({
+    name: 'id',
+    description: 'The unique identifier of the game',
+    type: 'string',
+    format: 'uuid',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Game cashed out successfully',
+    type: GameResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Game not found',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Game has already been completed',
+  })
+  async cashoutGame(@Param('id', ParseUUIDPipe) id: string): Promise<GameResponseDto> {
+    const game = await this.gameService.cashout(id);
     return this.mapToDTO(game);
   }
 

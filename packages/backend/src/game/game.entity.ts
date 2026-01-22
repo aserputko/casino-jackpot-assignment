@@ -49,6 +49,10 @@ export class GameEntity {
       throw new GameBusinessRuleException('Insufficient credits to play');
     }
 
+    if (this.status === GameStatus.Completed) {
+      throw new GameBusinessRuleException('Game has already been completed');
+    }
+
     // Apply truly random roll
     this.slots = this.getRandomSlots();
 
@@ -76,6 +80,14 @@ export class GameEntity {
       this.credits = this.credits - 1;
       this.status = this.credits === 0 ? GameStatus.Completed : GameStatus.Started;
     }
+  }
+
+  cashout() {
+    if (this.status === GameStatus.Completed) {
+      throw new GameBusinessRuleException('Game has already been completed');
+    }
+
+    this.status = GameStatus.Completed;
   }
 
   private isWin(): boolean {

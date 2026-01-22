@@ -36,22 +36,6 @@ export class GameRepository {
     return this.mapToEntity(result);
   }
 
-  //   async updateGameState(
-  //     id: string,
-  //     slots: string[],
-  //     credits: number,
-  //     status?: GameStatus,
-  //   ): Promise<Game> {
-  //     return this.prisma.game.update({
-  //       where: { id },
-  //       data: {
-  //         slots,
-  //         credits,
-  //         ...(status && { status }),
-  //       },
-  //     });
-  //   }
-
   private mapToEntity(data: GamePrisma): GameEntity {
     return new GameEntity({
       id: data.id,

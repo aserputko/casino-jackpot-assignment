@@ -29,4 +29,18 @@ export class GameService {
 
     return await this.gameRepository.update(id, game);
   }
+
+  async cashout(id: string): Promise<GameEntity> {
+    this.logger.log(`Cashing out game: ${id}`);
+
+    const game = await this.gameRepository.findById(id);
+
+    if (!game) {
+      throw new NotFoundException(`Game with ID ${id} not found`);
+    }
+
+    game.cashout();
+
+    return await this.gameRepository.update(id, game);
+  }
 }
