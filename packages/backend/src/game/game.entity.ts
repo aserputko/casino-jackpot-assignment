@@ -101,9 +101,9 @@ export class GameEntity {
   private getRandomSlotValue(): GameSlot {
     const r = Math.random();
 
-    if (r < 0.5) return GameSlot.C;
-    if (r < 0.7) return GameSlot.L;
-    if (r < 0.9) return GameSlot.O;
+    if (r < 0.25) return GameSlot.C;
+    if (r < 0.5) return GameSlot.L;
+    if (r < 0.75) return GameSlot.O;
     return GameSlot.W;
   }
 
