@@ -56,17 +56,17 @@ export class GameEntity {
     // Apply truly random roll
     this.slots = this.getRandomSlots();
 
-    // Apply 60% chance re-roll if a user has above 60 credits
-    if (this.isWin() && this.credits >= 60) {
-      const rollAgain = this.shouldPerformRollAgain(60);
+    // Apply 30% chance re-roll if a user has between 40 and 60 credits
+    if (this.isWin() && this.credits >= 40 && this.credits < 60) {
+      const rollAgain = this.shouldPerformRollAgain(30);
       if (rollAgain) {
         this.slots = this.getRandomSlots();
       }
     }
 
-    // Apply 30% chance re-roll if a user has between 40 and 60 credits
-    if (this.isWin() && this.credits >= 40) {
-      const rollAgain = this.shouldPerformRollAgain(30);
+    // Apply 60% chance re-roll if a user has above 60 credits
+    if (this.isWin() && this.credits >= 60) {
+      const rollAgain = this.shouldPerformRollAgain(60);
       if (rollAgain) {
         this.slots = this.getRandomSlots();
       }
