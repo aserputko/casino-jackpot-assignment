@@ -230,19 +230,3 @@ The project includes Docker Compose configuration for the PostgreSQL database. T
 2. Run linting before committing: `npm run lint`
 3. Ensure all tests pass
 4. Update documentation as needed
-
-## Implementation Status
-
-- [x] Investigate & analyze requirements
-- [x] Add Documentation to the repository
-- [x] Create Architecture Solution
-- [x] Create monorepo
-- [x] Setup Backend module
-- [x] Setup Database via Docker
-- [x] Setup Frontend module
-- [x] Implement "US-1: Start a new game" user story
-- [x] Implement "US-2: Rolling the slots" user story
-- [x] Implement "US-3: Rolling the Slots with additional business logic" user story
-- [x] Verify end-to-end flow in the system
-- [ ] Update/fix .env configurations
-- [ ] Update docs if needed
