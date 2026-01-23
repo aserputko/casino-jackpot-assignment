@@ -22,3 +22,4 @@
 - Environment variables support
   - NOTE: I decide to add default values to the code (PORT, DB_URL, etc) to simplify instalation and sutup
 - Animation of Credits section
+- Unit tests for frontend and backend
